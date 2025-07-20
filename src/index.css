@@ -1,0 +1,89 @@
+/* ====  Reset básico  ==== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* ====  Variables globales  ==== */
+:root {
+  --ff-base: "Inter", system-ui, sans-serif;
+  --clr-text: #1e1e1e;
+  --clr-muted: #5e5e5e;
+  --clr-bg: #e7e5e4;
+
+  --fs-h1: clamp(2.25rem, 6vw, 3rem);
+  --fs-h2: clamp(1.75rem, 4vw, 2.5rem);
+
+  --gap-xl: clamp(1rem, 2vw, 2rem);
+  --max-w: 1240px;
+  --radius: 8px;
+  --link-fade: 0.6;
+
+  color-scheme: light dark;
+  font-family: var(--ff-base);
+  line-height: 1.65;
+  font-weight: 400;
+
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: var(--clr-bg);
+  color: var(--clr-text);
+}
+
+/* ====  Raíz de la app  ==== */
+#root {
+  min-height: 100vh;
+  width: 100%;
+  padding: var(--gap-xl);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ====  Tipografía básica  ==== */
+h1, h2 {
+  line-height: 1.125;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  color: var(--clr-text);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  color: var(--clr-muted);
+}
+
+/* ====  Links  ==== */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+a:hover {
+  opacity: var(--link-fade);
+}
+
+/* ====  Contenedor reutilizable  ==== */
+.wrapper {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gap-xl);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    flex-direction: column-reverse;
+  }
+}
