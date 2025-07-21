@@ -1,0 +1,86 @@
+/* src/pages/jugadores/JugadoresCreate.css */
+
+.jugadores-create-wrapper {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.jugadores-create-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-field {
+  padding: 10px 14px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #3b82f6; /* azul */
+  outline: none;
+  box-shadow: 0 0 6px #3b82f6aa;
+}
+
+select.input-field {
+  appearance: none;
+  background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L5%206L9%201%22%20stroke%3D%22%23666%22%20stroke-width%3D%222%22/%3E%3C/svg%3E") no-repeat right 14px center/10px 7px;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.error-msg {
+  color: #dc2626; /* rojo */
+  font-size: 0.875rem;
+  margin-top: -12px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #2563eb; /* azul */
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.btn-disabled {
+  background-color: #94a3b8;
+  color: #f1f5f9;
+  cursor: not-allowed;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+}
+
+p.error-msg {
+  margin-top: 12px;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .jugadores-create-wrapper {
+    margin: 20px 16px;
+    padding: 16px;
+  }
+}

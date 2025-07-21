@@ -4,20 +4,22 @@ import axiosInstance from "../../config/axios";
 import { TitleHeader } from "../../components/TitleHeader/TitleHeader";
 import { ClubCard } from "../../components/ClubesCard/ClubesCard";
 
+
 export type Club = {
   _id: string;
   nombre: string;
   pais: string;
   fundacion: Date;
-  jugadores: string[];
   presidente?: string;
   estadio?: string;
   titulosGanados?: number;
-  colores?: string[];
+  colores: string[]; // <--- string, no string[
+  jugadores: string[];
   logoUrl?: string;
   createdAt: string;
   updatedAt?: string;
 };
+
 
 export const Clubes = () => {
   const [clubes, setClubes] = useState<Club[]>([]);
