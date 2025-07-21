@@ -13,7 +13,7 @@ export type JugadorCardProps = {
   fechaNacimiento: Date;
   posicion: string;
   numeroCamiseta: number;
-  club: Club[] | string[];
+  club: Club | string; // ⚠️ Cambiado: ya no es un array
 };
 
 export const JugadorCard: React.FC<JugadorCardProps> = ({
@@ -26,10 +26,10 @@ export const JugadorCard: React.FC<JugadorCardProps> = ({
   club,
 }) => {
   const renderClub = () => {
-    if (typeof club[0] === "string") {
-      return (club as string[]).join(", ");
+    if (typeof club === "string") {
+      return club;
     } else {
-      return (club as Club[]).map((c) => c.nombre).join(", ");
+      return club?.nombre;
     }
   };
 
@@ -43,9 +43,12 @@ export const JugadorCard: React.FC<JugadorCardProps> = ({
       </header>
 
       <ul className="jugadorcard__info">
-        <li>🎽 Camiseta N°: {numeroCamiseta}</li>
+        {numeroCamiseta ? (
+          <li>🎽 Camiseta N°: {numeroCamiseta}</li>
+        ) : null}
+
         <li>🎂 Nacimiento: {new Date(fechaNacimiento).toLocaleDateString()}</li>
-        {club && club.length > 0 && (
+        {club && (
           <li>🏟️ Club: {renderClub()}</li>
         )}
       </ul>

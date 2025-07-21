@@ -7,14 +7,13 @@ import { ClubCard } from "../../components/ClubesCard/ClubesCard";
 
 export type Club = {
   _id: string;
-  nombre: string;
-  pais: string;
-  fundacion: Date;
-  presidente?: string;
-  estadio?: string;
-  titulosGanados?: number;
-  colores: string[]; // <--- string, no string[
-  jugadores: string[];
+  name: string;
+  location: string;
+  establishedAt: Date;
+  president?: string;
+  stadium?: string;
+  titlesWon?: number;
+  players: string[];
   logoUrl?: string;
   createdAt: string;
   updatedAt?: string;
@@ -52,14 +51,13 @@ export const Clubes = () => {
           <ClubCard
             key={club._id}
             _id={club._id}
-            nombre={club.nombre}
-            pais={club.pais}
-            fundacion={club.fundacion}
-            jugadores={club.jugadores}
-            presidente={club.presidente}
-            estadio={club.estadio}
-            titulosGanados={club.titulosGanados}
-            colores={club.colores}
+            name={club.name}
+            location={club.location}
+            establishedAt={club.establishedAt}
+            players={club.players}
+            president={club.president}
+            stadium={club.stadium}
+            titlesWon={club.titlesWon}
             logoUrl={club.logoUrl}
           />
         ))}

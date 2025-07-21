@@ -8,7 +8,7 @@ import { Jugadores } from './pages/jugadores/Jugadores';
 import { Fallback } from './components/Fallback/Fallback';
 import { ClubCreate } from './pages/clubesCreate/ClubesCreate'; 
 import { JugadoresCreate } from './pages/jugadoresCreate/JugadoresCreate'; 
-
+import { JugadorPanel } from './pages/jugadoresPanel/JugadoresPanel';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
         path: "jugadoresCreate", // ⬅️ esto representa "/jugadores/crear"
         element: <JugadoresCreate />,
       },
+      {
+        path: "jugadoresPanel/:id", // ⬅️ esto representa "/jugadores/:id"
+        element: <JugadorPanel />,
+      }
     ],
   },
 ]);

@@ -8,38 +8,34 @@ import { TitleHeader } from "../../components/TitleHeader/TitleHeader";
 import { useState } from "react";
 
 type FormData = {
-  nombre: string;
-  pais: string;
-  fundacion: string; // CORREGIDO: debe ser string para evitar errores
-  estadio?: string;
-  presidente?: string;
-  titulosGanados?: number;
-  colores?: string[];
+  name: string;
+  location: string;
+  establishedAt: Date; // CORREGIDO: debe ser string para evitar errores
+  stadium?: string;
+  president?: string;
+  titlesWon?: number;
   logoUrl?: string;
 };
 
 const validation = Joi.object<FormData>({
-  nombre: Joi.string().required().messages({
+  name: Joi.string().required().messages({
     "string.empty": "El nombre es obligatorio"
   }),
-  pais: Joi.string().required().messages({
+  location: Joi.string().required().messages({
     "string.empty": "El país es obligatorio"
   }),
-  fundacion: Joi.string().isoDate().required().messages({
+  establishedAt: Joi.string().isoDate().required().messages({
     "string.empty": "La fecha de fundación es obligatoria",
     "string.isoDate": "Debe ser una fecha válida (yyyy-mm-dd)"
   }),
-  estadio: Joi.string().required().messages({
+  stadium: Joi.string().required().messages({
     "string.empty": "El estadio es obligatorio"
   }),
-  presidente: Joi.string().required().messages({
+  president: Joi.string().required().messages({
     "string.empty": "El presidente es obligatorio"
   }),
-  titulosGanados: Joi.number().required().messages({
+  titlesWon: Joi.number().required().messages({
     "number.base": "Los títulos ganados son obligatorios"
-  }),
-  colores: Joi.array().items(Joi.string().min(1)).required().messages({
-    "array.base": "Los colores son obligatorios"
   }),
   logoUrl: Joi.string().uri().required().messages({
     "string.empty": "La URL del logo es obligatoria",
@@ -65,8 +61,7 @@ export const ClubCreate = () => {
 
     const body = {
       ...values,
-      fundacion: new Date(values.fundacion), // CORREGIDO: convertir string en Date
-      colores: values.colores?.filter((c) => c && c.trim() !== "") ?? [] // evitar [""] vacíos
+      establishedAt: new Date(values.establishedAt), // CORREGIDO: convertir string en Date
     };
 
     try {
@@ -86,32 +81,32 @@ export const ClubCreate = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Nombre */}
           <div>
-            <input className="input-field" placeholder="Nombre" {...register("nombre")} />
-            {errors.nombre && <span className="error-msg">{errors.nombre.message}</span>}
+            <input className="input-field" placeholder="Nombre" {...register("name")} />
+            {errors.name && <span className="error-msg">{errors.name.message}</span>}
           </div>
 
           {/* País */}
           <div>
-            <input className="input-field" placeholder="País" {...register("pais")} />
-            {errors.pais && <span className="error-msg">{errors.pais.message}</span>}
+            <input className="input-field" placeholder="País" {...register("location")} />
+            {errors.location && <span className="error-msg">{errors.location.message}</span>}
           </div>
 
           {/* Fundación */}
           <div>
-            <input className="input-field" type="date" {...register("fundacion")} />
-            {errors.fundacion && <span className="error-msg">{errors.fundacion.message}</span>}
+            <input className="input-field" type="date" {...register("establishedAt")} />
+            {errors.establishedAt && <span className="error-msg">{errors.establishedAt.message}</span>}
           </div>
 
           {/* Estadio */}
           <div>
-            <input className="input-field" placeholder="Estadio" {...register("estadio")} />
-            {errors.estadio && <span className="error-msg">{errors.estadio.message}</span>}
+            <input className="input-field" placeholder="Estadio" {...register("stadium")} />
+            {errors.stadium && <span className="error-msg">{errors.stadium.message}</span>}
           </div>
 
           {/* Presidente */}
           <div>
-            <input className="input-field" placeholder="Presidente" {...register("presidente")} />
-            {errors.presidente && <span className="error-msg">{errors.presidente.message}</span>}
+            <input className="input-field" placeholder="Presidente" {...register("president")} />
+            {errors.president && <span className="error-msg">{errors.president.message}</span>}
           </div>
 
           {/* Títulos Ganados */}
@@ -120,21 +115,9 @@ export const ClubCreate = () => {
               className="input-field"
               type="number"
               placeholder="Títulos ganados"
-              {...register("titulosGanados")}
+              {...register("titlesWon")}
             />
-            {errors.titulosGanados && <span className="error-msg">{errors.titulosGanados.message}</span>}
-          </div>
-
-          {/* Colores */}
-          <div>
-            <input
-              className="input-field"
-              placeholder="Colores (separados por coma)"
-              {...register("colores", {
-                setValueAs: (v: string) => v.split(",").map((s) => s.trim())
-              })}
-            />
-            {errors.colores && <span className="error-msg">{errors.colores.message}</span>}
+            {errors.titlesWon && <span className="error-msg">{errors.titlesWon.message}</span>}
           </div>
 
           {/* Logo URL */}

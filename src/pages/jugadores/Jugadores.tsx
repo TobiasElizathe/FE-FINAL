@@ -13,7 +13,7 @@ export type Jugador = {
   fechaNacimiento: Date; // formato ISO desde la API
   posicion: Posicion;
   numeroCamiseta: number;
-  club: string[]; // ID del club o nombre, depende del back
+  club: string; // ID del club o nombre, depende del back
 };
 
 export const Jugadores = () => {
