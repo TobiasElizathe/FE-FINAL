@@ -6,16 +6,20 @@ import { JugadorCard } from "../../components/JugadoresCard/JugadoresCard";
 
 export type Posicion = "Arquero" | "Defensor" | "Mediocampista" | "Delantero";
 
+export type Club = {
+  _id: string;
+  nombre: string;
+};
+
 export type Jugador = {
   _id: string;
   nombre: string;
   apellido: string;
-  fechaNacimiento: Date; // formato ISO desde la API
+  fechaNacimiento: Date;
   posicion: Posicion;
   numeroCamiseta: number;
-  club: string; // ID del club o nombre, depende del back
+  club: Club | string; // ✅ Puede ser objeto o ID
 };
-
 export const Jugadores = () => {
   const [jugadores, setJugadores] = useState<Jugador[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

@@ -9,11 +9,13 @@
 }
 
 .club-escudo {
-  width: 100px;
+  width: 100px;        /* Forzamos tamaño exacto */
   height: 100px;
-  object-fit: contain;
-  margin-bottom: 1rem;
+  object-fit: contain; /* Mantiene proporción */
+  display: block;      /* Evita espacios raros */
+  margin: 0 auto 1rem; /* Centrado + margen abajo */
 }
+
 
 .club-nombre {
   font-size: 1.5rem;

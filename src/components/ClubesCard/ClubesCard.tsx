@@ -1,6 +1,7 @@
 // src/components/ClubesCard/ClubesCard.tsx
 import { useEffect, useState } from "react";
 import axiosInstance from "../../config/axios";
+import { Link } from "react-router-dom";
 
 interface Jugador {
   _id: string;
@@ -60,7 +61,8 @@ export const ClubCard = ({
   return (
     <div className="club-card">
       {logoUrl && (
-        <img src={logoUrl} alt={`Escudo de ${name}`} className="club-escudo" />
+        <img src={logoUrl} alt={`Escudo de ${name}`} className="club-escudo" style={{ width: "100px", height: "100px", objectFit: "contain" }} />
+
       )}
       <h2 className="club-nombre">{name}</h2>
       {stadium && <p><strong>Estadio:</strong> {stadium}</p>}
@@ -79,6 +81,12 @@ export const ClubCard = ({
       ) : (
         <p>No tiene jugadores asociados.</p>
       )}
+      
+      <footer className="jugadorcard__foot">
+        <Link to={`/clubesPanel/${_id}`} className="jugadorcard__link">
+          editar
+        </Link>
+      </footer>
     </div>
   );
 };

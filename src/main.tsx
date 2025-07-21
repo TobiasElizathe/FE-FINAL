@@ -9,6 +9,7 @@ import { Fallback } from './components/Fallback/Fallback';
 import { ClubCreate } from './pages/clubesCreate/ClubesCreate'; 
 import { JugadoresCreate } from './pages/jugadoresCreate/JugadoresCreate'; 
 import { JugadorPanel } from './pages/jugadoresPanel/JugadoresPanel';
+import { ClubPanel } from './pages/clubesPanel/ClubesPanel'; // Asegúrate de importar el panel de clubes
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "jugadoresPanel/:id", // ⬅️ esto representa "/jugadores/:id"
         element: <JugadorPanel />,
+      },
+      {
+        path: "clubesPanel/:id", // ⬅️ esto representa "/clubes/:id"
+        element: <ClubPanel />,
       }
     ],
   },

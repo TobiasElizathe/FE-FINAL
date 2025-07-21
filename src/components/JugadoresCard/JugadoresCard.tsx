@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 interface Club {
   _id: string;
   nombre: string;
+  logoUrl?: string;
 }
+
 
 export type JugadorCardProps = {
   _id?: string;
@@ -12,7 +14,7 @@ export type JugadorCardProps = {
   apellido: string;
   fechaNacimiento: Date;
   posicion: string;
-  numeroCamiseta: number;
+  numeroCamiseta?: number;
   club: Club | string; // ⚠️ Cambiado: ya no es un array
 };
 
