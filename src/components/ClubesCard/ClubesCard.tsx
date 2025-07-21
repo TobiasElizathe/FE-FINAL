@@ -1,53 +1,80 @@
-import "./ClubesCard.css";
-import { Link } from "react-router-dom";
+// src/components/ClubesCard/ClubesCard.tsx
+import { useEffect, useState } from "react";
+import axiosInstance from "../../config/axios";
 
-export type ClubCardProps = {
-  _id?: string;
+interface Jugador {
+  _id: string;
+  nombre: string;
+  apellido: string;
+  club?: string;
+}
+
+interface ClubProps {
+  _id: string;
   nombre: string;
   pais: string;
-  fundacion: string; 
-  presidente?: string;
+  fundacion: Date;
   estadio?: string;
-  titulosGanados?: number;
-  colores?: string[];
+  presidente?: string;
+  titulosGanados?: number;  
   logoUrl?: string;
-};
+  jugadores?: Jugador[] | string[]; // Se permite string[] para evitar errores
+  colores?: string[];
+}
 
-export const ClubCard: React.FC<ClubCardProps> = ({
+export const ClubCard = ({
   _id,
   nombre,
-  pais,
-  fundacion,
-  presidente,
   estadio,
-  titulosGanados,
-  colores,
+  presidente,
+  fundacion,
   logoUrl,
+  jugadores = [],
+}: ClubProps) => {
+  const [jugadoresState, setJugadoresState] = useState<Jugador[]>([]);
 
-}) => {
+  useEffect(() => {
+    const cargarJugadores = async () => {
+      // Si los jugadores son solo IDs, hay que pedirlos
+      if (typeof jugadores[0] === "string") {
+        try {
+          const res = await axiosInstance.get("/jugadores");
+          const jugadoresDelClub = res.data.filter(
+            (j: Jugador) =>
+              (jugadores as string[]).includes(j._id) || j.club === _id
+          );
+          setJugadoresState(jugadoresDelClub);
+        } catch (error) {
+          console.error("Error al cargar jugadores:", error);
+        }
+      } else {
+        setJugadoresState(jugadores as Jugador[]);
+      }
+    };
+
+    cargarJugadores();
+  }, [jugadores, _id]);
+
   return (
-    <article className="clubcard">
-      <header className="clubcard__head">
-        <img src={logoUrl} alt={`${nombre} logo`} className="clubcard__logo" />
-        <h2 className="clubcard__name">{nombre}</h2>
-      </header>
+    <div className="club-card">
+      {logoUrl && (
+        <img src={logoUrl} alt={`Escudo de ${nombre}`} className="club-escudo" />
+      )}
+      <h2 className="club-nombre">{nombre}</h2>
+      {estadio && <p><strong>Estadio:</strong> {estadio}</p>}
+      {presidente && <p><strong>Presidente:</strong> {presidente}</p>}
+      <p><strong>Fundación:</strong> {new Date(fundacion).toLocaleDateString()}</p>
 
-      <ul className="clubcard__info">
-        <li>🌍 País: {pais}</li>
-        <li>📅 Fundación: {new Date(fundacion).getFullYear()}</li>
-        {presidente && <li>👤 Presidente: {presidente}</li>}
-        {estadio && <li>🏟️ Estadio: {estadio}</li>}
-        {titulosGanados !== undefined && <li>🏆 Títulos: {titulosGanados}</li>}
-        {colores?.length && (
-          <li>🎨 Colores: {colores.join(", ")}</li>
-        )}
-      </ul>
-
-      <footer className="clubcard__foot">
-        <Link to={`/clubesPanel/${_id}`} className="clubcard__link">
-          editar
-        </Link>
-      </footer>
-    </article>
+      <p><strong>Jugadores:</strong></p>
+      {jugadoresState.length > 0 ? (
+        <ul className="club-jugadores">
+          {jugadoresState.map((j) => (
+            <li key={j._id}>{j.nombre} {j.apellido}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No tiene jugadores asociados.</p>
+      )}
+    </div>
   );
 };

@@ -1,0 +1,15 @@
+.jugadores-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.jugadores-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.jugadores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
