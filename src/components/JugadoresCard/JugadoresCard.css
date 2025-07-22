@@ -29,6 +29,7 @@
   margin: 0;
   color: #1e293b; /* gris oscuro azulado */
   letter-spacing: -0.02em;
+
 }
 
 .jugadorcard__posicion {
@@ -81,7 +82,7 @@
 
 .jugadorcard__photo {
   position: absolute;
-  top: 0;
+  top: 30px;
   right: 0;
   width: 60px;
   height: 60px;

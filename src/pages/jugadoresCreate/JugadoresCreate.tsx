@@ -48,7 +48,7 @@ export const JugadoresCreate = () => {
 useEffect(() => {
   (async () => {
     try {
-      const res = await axiosI.get("/clubes");
+      const res = await axiosI.get("/clubes/active");
       console.log("Clubes:", res.data.data); // ✔️ Esto va a mostrar los clubes
       setClubs(res.data.data);
     } catch (err) {

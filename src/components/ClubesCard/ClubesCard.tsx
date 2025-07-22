@@ -1,7 +1,6 @@
 
 import "./ClubesCard.css"; // Asegúrate de tener un archivo CSS para estilos
 import { Link } from "react-router-dom";
-
 interface Jugador {
   _id: string;
   nombre: string;
@@ -18,7 +17,7 @@ interface ClubProps {
   president?: string;
   titlesWon?: number;
   logoUrl?: string;
-  players: Jugador[]; // ahora sólo Jugador[]
+  players: Jugador[];
 }
 
 export const ClubCard = ({
@@ -53,7 +52,9 @@ export const ClubCard = ({
       {players.length > 0 ? (
         <ul className="club-jugadores">
           {players.map((j) => (
-            <li key={j._id}>{j.nombre} {j.apellido}</li>
+            <li key={j._id}>
+              {j.nombre} {j.apellido}
+            </li>
           ))}
         </ul>
       ) : (

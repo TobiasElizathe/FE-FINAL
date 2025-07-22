@@ -1,0 +1,86 @@
+/* Contenedor principal centrado */
+.container {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Título */
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1f2937; /* gris oscuro */
+}
+
+/* Inputs de texto y contraseña */
+.textInput {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1.8px solid #d1d5db; /* gris claro */
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.25s ease;
+  outline: none;
+}
+
+.textInput:focus {
+  border-color: #2563eb; /* azul intenso */
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+}
+
+/* Botón principal */
+button {
+  width: 100%;
+  background-color: #2563eb; /* azul */
+  color: white;
+  font-weight: 600;
+  padding: 0.85rem 0;
+  border: none;
+  border-radius: 9.6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #1e40af; /* azul más oscuro */
+}
+
+button:disabled {
+  background-color: #a5b4fc; /* azul más claro */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Mensaje de error */
+p {
+  color: #dc2626; /* rojo */
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Texto de links */
+div > a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+div > a:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor del texto con link */
+div {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #374151; /* gris */
+}

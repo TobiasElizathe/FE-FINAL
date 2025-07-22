@@ -86,7 +86,7 @@ export const JugadorPanel = () => {
 
     const fetchClubes = async () => {
       try {
-        const res = await axiosInstance.get("/clubes");
+        const res = await axiosInstance.get("/clubes/active");
         setClubes(res.data.data);
       } catch (e) {
         console.error("Error cargando clubes", e);

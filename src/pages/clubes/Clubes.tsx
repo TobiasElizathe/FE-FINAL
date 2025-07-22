@@ -1,4 +1,3 @@
-// src/pages/Clubes.tsx
 import { useEffect, useState } from "react";
 import axiosInstance from "../../config/axios";
 import { ClubCard } from "../../components/ClubesCard/ClubesCard";
@@ -22,26 +21,21 @@ interface Club {
   establishedAt: Date;
   logoUrl?: string;
   isActive: boolean;
-  players: string[];
+  players: Jugador[];  // ya vienen con los jugadores incluidos
 }
 
 export const Clubes = () => {
   const [clubes, setClubes] = useState<Club[]>([]);
-  const [jugadores, setJugadores] = useState<Jugador[]>([]);
   const [loading, setLoading] = useState(true);
   const [toggleId, setToggleId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
     try {
-      const [resClubes, resJugadores] = await Promise.all([
-        axiosInstance.get("/clubes"),
-        axiosInstance.get("/jugadores"),
-      ]);
+      const resClubes = await axiosInstance.get("/clubes");
       setClubes(resClubes.data.data);
-      setJugadores(resJugadores.data.data);
     } catch (err) {
-      setError("Error al cargar los clubes o jugadores.");
+      setError("Error al cargar los clubes.");
     } finally {
       setLoading(false);
     }
@@ -57,7 +51,7 @@ export const Clubes = () => {
 
     const endpoint = enable
       ? `/clubes/${id}/activate`
-      : `/clubes/${id}/desactivate`; // Confirmá la ruta backend
+      : `/clubes/${id}/desactivate`;
 
     try {
       await axiosInstance.patch(endpoint);
@@ -83,13 +77,12 @@ export const Clubes = () => {
 
       <div className="clubes-lista">
         {clubes.map((club) => {
-          const jugadoresClub = jugadores.filter((j) => j.club === club._id);
           const isToggling = toggleId === club._id;
 
           return (
-              <div key={club._id} className="clubes-item">
+            <div key={club._id} className="clubes-item">
               <div className={`club-content ${!club.isActive ? "club-inactive" : ""}`}>
-                <ClubCard {...club} players={jugadoresClub} />
+                <ClubCard {...club} players={club.players} />
               </div>
 
               <div className="jugadorcard_foot">

@@ -1,6 +1,5 @@
-
+/* Navbar fijo arriba */
 .navbar {
-
   width: 100%;
   height: 102px;
   position: fixed;
@@ -12,14 +11,19 @@
   align-items: center;
   justify-content: space-between;
 
-
   background: #0f0f17;              
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 
   padding: 0 2rem;
 }
 
-/*  ---------- logo  ----------  */
+/* Espacio para que el contenido no quede tapado */
+body {
+  padding-top: 102px;
+  margin: 0; /* por si acaso */
+}
+
+/* ---------- logo ---------- */
 .navbar .logo {
   height: 56px;
   width: auto;
@@ -44,7 +48,7 @@
   border-radius: 6px;
 }
 
-/*  ---------- lista de links  ----------  */
+/* ---------- lista de links ---------- */
 .navbar ul {
   list-style: none;
   display: flex;
@@ -56,6 +60,7 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
 .navbar a {
   color: #fafafa;
   font-size: 1.65rem;
@@ -81,9 +86,12 @@
 .navbar a:hover {
   color: #f7c600;
 }
+
 .navbar a:hover::after {
   width: 100%;
 }
+
+/* Responsive para pantallas pequeñas */
 @media (max-width: 850px) {
   .navbar {
     position: fixed;
@@ -97,9 +105,16 @@
     border-top: 1px solid #f90a0a;
     border-right: none;
   }
+
+  body {
+    padding-top: 0;
+    padding-bottom: 60px; /* espacio para navbar abajo */
+  }
+
   .navbar .logo {
     display: none;
   }
+
   .navbar ul {
     flex-direction: row-reverse;
     justify-content: center;
@@ -110,6 +125,7 @@
     margin: 0;
   }
 }
+
 @media (max-width: 500px) {
   .navbar li a::before {
     display: none;

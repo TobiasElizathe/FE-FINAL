@@ -10,41 +10,55 @@ import { ClubCreate } from './pages/clubesCreate/ClubesCreate';
 import { JugadoresCreate } from './pages/jugadoresCreate/JugadoresCreate'; 
 import { JugadorPanel } from './pages/jugadoresPanel/JugadoresPanel';
 import { ClubPanel } from './pages/clubesPanel/ClubesPanel'; // Asegúrate de importar el panel de clubes
+import { AuthProvider } from './contexts/authContext';
+import { Login } from './components/auth/Login';
+import { Register } from './components/auth/register/Register';
+
+import PrivateRoute from './components/privateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />, // Página de login pública
+  },
+  {
+    path: "/register",
+    element: <Register />, // Página de registro pública
+  },
+  {
     path: "/",
-    element: <Layout />, // ⬅️ Este es el layout que contiene el Navbar
+    element: <PrivateRoute component={Layout} />, // Layout que requiere autenticación
     errorElement: <Fallback />,
     children: [
       {
-        index: true, // ⬅️ esto representa "/"
+        index: true,
+        element: <Clubes />,
+      },
+      // resto de rutas privadas
+      {
+        path: "clubes",
         element: <Clubes />,
       },
       {
-        path: "clubes", // ⬅️ esto representa "/clubes"
-        element: <Clubes />,
-      },
-      {
-        path: "jugadores", // ⬅️ esto representa "/jugadores"
+        path: "jugadores",
         element: <Jugadores />,
       },
       {
-        path: "clubesCreate", // ⬅️ esto representa "/clubes/crear"
+        path: "clubesCreate",
         element: <ClubCreate />,
       },
       {
-        path: "jugadoresCreate", // ⬅️ esto representa "/jugadores/crear"
+        path: "jugadoresCreate",
         element: <JugadoresCreate />,
       },
       {
-        path: "jugadoresPanel/:id", // ⬅️ esto representa "/jugadores/:id"
+        path: "jugadoresPanel/:id",
         element: <JugadorPanel />,
       },
       {
-        path: "clubesPanel/:id", // ⬅️ esto representa "/clubes/:id"
+        path: "clubesPanel/:id",
         element: <ClubPanel />,
-      }
+      },
     ],
   },
 ]);
@@ -52,6 +66,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );
