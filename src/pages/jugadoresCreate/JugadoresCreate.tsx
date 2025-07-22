@@ -14,6 +14,7 @@ type FormData = {
   fechaNacimiento: string; // Usaremos string para input date
   posicion: string;
   numeroCamiseta: number;
+  photoUrl?: string; // FOTO del jugador
   club: string; // id del club
 };
 
@@ -24,6 +25,7 @@ const validation = Joi.object<FormData>({
   posicion: Joi.string().valid("Arquero", "Defensor", "Mediocampista", "Delantero").required().messages({ "any.only": "Posición inválida", "any.required": "La posición es obligatoria" }),
   numeroCamiseta: Joi.number().integer().min(1).max(99).required().messages({ "number.base": "Número inválido", "number.min": "Mínimo 1", "number.max": "Máximo 99", "any.required": "El número de camiseta es obligatorio" }),
   club: Joi.string().required().messages({ "string.empty": "El club es obligatorio" }),
+    photoUrl: Joi.string().uri().allow("").optional().messages({"string.uri": "Debe ser una URL válida"}),
 });
 
 export const JugadoresCreate = () => {
@@ -34,7 +36,7 @@ export const JugadoresCreate = () => {
   } = useForm<FormData>({ resolver: joiResolver(validation) });
 
   const [serverErr, setServerErr] = useState<string | null>(null);
-  const [clubs, setClubs] = useState<{ _id: string; nombre: string }[]>([]);
+  const [clubs, setClubs] = useState<{ _id: string; name: string }[]>([]);
   const navigate = useNavigate();
 
   const logged = JSON.parse(localStorage.getItem("user") || "null");
@@ -131,11 +133,20 @@ useEffect(() => {
             <option value="">Seleccioná club</option>
             {clubs.map((club) => (
               <option key={club._id} value={club._id}>
-                {club.nombre}
+                {club.name}
               </option>
             ))}
           </select>
           {errors.club && <span className="error-msg">{errors.club.message}</span>}
+
+            {/* URL Foto */}
+            <input
+              className="input-field"
+              placeholder="URL de la foto del jugador (opcional)"
+              {...register("photoUrl")}
+            />
+            {errors.photoUrl && <span className="error-msg">{errors.photoUrl.message}</span>}
+
 
           {/* botón */}
           <button

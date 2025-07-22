@@ -1,31 +1,36 @@
-/* ---------- Wrapper ---------- */
+/* TitleHeader.css */
+
 .hdr {
-  background: #afaeae;
-  padding: 1.25rem 1.75rem;
-
-  border-left: 5px solid #ff0037;
-  border-right: 5px solid #ff0037;
-  border-bottom: 5px solid #ff0037;
-  border-radius: 4px;
-  margin-bottom: 1.6rem;
-
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  color: #000000;
+  margin-bottom: 24px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #111827; /* gris oscuro */
 }
 
-/*------*/
 .hdr__title {
-  margin: 0;
-  font-size: 3.2rem;
+  font-size: 2.25rem;
   font-weight: 700;
-  letter-spacing: -0.4px;
-  line-height: 3.25;
+  margin: 0;
+  line-height: 5.2;
+  letter-spacing: -0.02em;
+  color: #2563eb; /* azul vibrante */
 }
-
 
 .hdr__subtitle {
   display: block;
-  margin-top: 0rem;
-  font-size: 1.8rem;
-  color: #1f1c1c;
+  margin-top: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280; /* gris medio */
+  letter-spacing: 0.02em;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .hdr__title {
+    font-size: 1.75rem;
+  }
+  .hdr__subtitle {
+    font-size: 0.9rem;
+  }
 }

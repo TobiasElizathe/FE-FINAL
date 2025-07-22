@@ -8,8 +8,10 @@ export type Posicion = "Arquero" | "Defensor" | "Mediocampista" | "Delantero";
 
 export type Club = {
   _id: string;
-  nombre: string;
+  name: string;
+  logoUrl?: string;
 };
+
 
 export type Jugador = {
   _id: string;
@@ -18,6 +20,7 @@ export type Jugador = {
   fechaNacimiento: Date;
   posicion: Posicion;
   numeroCamiseta: number;
+  photoUrl?: string; // FOTO del jugador
   club: Club | string; // ✅ Puede ser objeto o ID
 };
 export const Jugadores = () => {
@@ -81,6 +84,7 @@ export const Jugadores = () => {
               posicion={jugador.posicion}
               numeroCamiseta={jugador.numeroCamiseta}
               club={jugador.club}
+              photoUrl={jugador.photoUrl}
             />
           ))}
         </div>

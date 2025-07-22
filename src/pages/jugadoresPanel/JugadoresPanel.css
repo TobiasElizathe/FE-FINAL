@@ -88,6 +88,32 @@
   cursor: not-allowed;
   opacity: 0.65;
 }
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.8px solid #000000;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+  background: #fff;
+  color: #222;
+}
+
+.input-field:focus {
+  border-color: #3b82f6; /* azul */
+  outline: none;
+  box-shadow: 0 0 6px #3b82f6aa;
+}
+
+.error-msg {
+  color: #dc2626; /* rojo */
+  font-size: 0.875rem;
+  margin-top: -12px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
 
 /* ═════════════  RESPONSIVE  ═════════════ */
 @media (max-width: 640px) {

@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 
 interface Club {
   _id: string;
-  nombre: string;
+  name: string;
   logoUrl?: string;
 }
-
 
 export type JugadorCardProps = {
   _id?: string;
@@ -15,7 +14,8 @@ export type JugadorCardProps = {
   fechaNacimiento: Date;
   posicion: string;
   numeroCamiseta?: number;
-  club: Club | string; // ⚠️ Cambiado: ya no es un array
+  photoUrl?: string; // FOTO del jugador
+  club: Club | string; // ⚠️ Puede ser un objeto Club o un string (id)
 };
 
 export const JugadorCard: React.FC<JugadorCardProps> = ({
@@ -25,14 +25,28 @@ export const JugadorCard: React.FC<JugadorCardProps> = ({
   fechaNacimiento,
   posicion,
   numeroCamiseta,
+  photoUrl, // agrego aquí
   club,
 }) => {
   const renderClub = () => {
-    if (typeof club === "string") {
-      return club;
-    } else {
-      return club?.nombre;
-    }
+    if (!club) return "Sin club asignado";
+    if (typeof club === "string") return club;
+
+    return (
+      <span className="club-info">
+        {club.logoUrl && (
+          <img
+            src={club.logoUrl}
+            alt={`${club.name} logo`}
+            className="club-logo"
+            width={24}
+            height={24}
+            style={{ marginRight: 6, verticalAlign: "middle" }}
+          />
+        )}
+        <span>{club.name}</span>
+      </span>
+    );
   };
 
   return (
@@ -42,17 +56,21 @@ export const JugadorCard: React.FC<JugadorCardProps> = ({
           {nombre} {apellido}
         </h2>
         <p className="jugadorcard__posicion">🧩 {posicion}</p>
+
+        {/* Foto pequeña arriba a la derecha */}
+        {photoUrl && (
+          <img
+            src={photoUrl}
+            alt={`Foto de ${nombre}`}
+            className="jugadorcard__photo"
+          />
+        )}
       </header>
 
       <ul className="jugadorcard__info">
-        {numeroCamiseta ? (
-          <li>🎽 Camiseta N°: {numeroCamiseta}</li>
-        ) : null}
-
+        {numeroCamiseta ? <li>🎽 Camiseta N°: {numeroCamiseta}</li> : null}
         <li>🎂 Nacimiento: {new Date(fechaNacimiento).toLocaleDateString()}</li>
-        {club && (
-          <li>🏟️ Club: {renderClub()}</li>
-        )}
+        {club && <li>🏟️ Club: {renderClub()}</li>}
       </ul>
 
       <footer className="jugadorcard__foot">

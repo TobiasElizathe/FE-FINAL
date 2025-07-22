@@ -1,6 +1,5 @@
-// src/components/ClubesCard/ClubesCard.tsx
-import { useEffect, useState } from "react";
-import axiosInstance from "../../config/axios";
+
+import "./ClubesCard.css"; // Asegúrate de tener un archivo CSS para estilos
 import { Link } from "react-router-dom";
 
 interface Jugador {
@@ -19,8 +18,7 @@ interface ClubProps {
   president?: string;
   titlesWon?: number;
   logoUrl?: string;
-  players: Jugador[] | string[]; // Se permite string[] para evitar errores
-
+  players: Jugador[]; // ahora sólo Jugador[]
 }
 
 export const ClubCard = ({
@@ -34,35 +32,15 @@ export const ClubCard = ({
   logoUrl,
   players = [],
 }: ClubProps) => {
-  const [jugadoresState, setJugadoresState] = useState<Jugador[]>([]);
-
-  useEffect(() => {
-    const cargarJugadores = async () => {
-      // Si los jugadores son solo IDs, hay que pedirlos
-      if (typeof players[0] === "string") {
-        try {
-          const res = await axiosInstance.get("/jugadores");
-          const jugadoresDelClub = res.data.filter(
-            (j: Jugador) =>
-              (players as string[]).includes(j._id) || j.club === _id
-          );
-          setJugadoresState(jugadoresDelClub);
-        } catch (error) {
-          console.error("Error al cargar jugadores:", error);
-        }
-      } else {
-        setJugadoresState(players as Jugador[]);
-      }
-    };
-
-    cargarJugadores();
-  }, [players, _id]);
-
   return (
     <div className="club-card">
       {logoUrl && (
-        <img src={logoUrl} alt={`Escudo de ${name}`} className="club-escudo" style={{ width: "100px", height: "100px", objectFit: "contain" }} />
-
+        <img
+          src={logoUrl}
+          alt={`Escudo de ${name}`}
+          className="club-escudo"
+          style={{ width: "100px", height: "100px", objectFit: "contain" }}
+        />
       )}
       <h2 className="club-nombre">{name}</h2>
       {stadium && <p><strong>Estadio:</strong> {stadium}</p>}
@@ -72,16 +50,16 @@ export const ClubCard = ({
       <p><strong>Fundación:</strong> {new Date(establishedAt).toLocaleDateString()}</p>
 
       <p><strong>Jugadores:</strong></p>
-      {jugadoresState.length > 0 ? (
+      {players.length > 0 ? (
         <ul className="club-jugadores">
-          {jugadoresState.map((j) => (
+          {players.map((j) => (
             <li key={j._id}>{j.nombre} {j.apellido}</li>
           ))}
         </ul>
       ) : (
         <p>No tiene jugadores asociados.</p>
       )}
-      
+
       <footer className="jugadorcard__foot">
         <Link to={`/clubesPanel/${_id}`} className="jugadorcard__link">
           editar

@@ -1,65 +1,87 @@
-/* src/pages/jugadores/JugadoresCreate.css */
-
 .jugadores-create-wrapper {
   max-width: 480px;
   margin: 40px auto;
-  padding: 20px;
-  background: #f9fafb;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  padding: 24px 28px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937; /* texto oscuro para buen contraste */
 }
 
 .jugadores-create-form form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .input-field {
-  padding: 10px 14px;
-  border: 1.8px solid #ccc;
-  border-radius: 6px;
+  padding: 12px 16px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
   font-size: 1rem;
-  outline-offset: 2px;
-  transition: border-color 0.3s ease;
+  outline-offset: 3px;
+  background-color: #f9fafb;
+  color: #1f2937;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .input-field:focus {
-  border-color: #3b82f6; /* azul */
+  border-color: #2563eb; /* azul vivo */
+  background-color: #ffffff;
   outline: none;
-  box-shadow: 0 0 6px #3b82f6aa;
+  box-shadow: 0 0 8px #2563ebcc;
 }
 
+/* Select estilizado con buen contraste y legibilidad */
 select.input-field {
   appearance: none;
-  background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L5%206L9%201%22%20stroke%3D%22%23666%22%20stroke-width%3D%222%22/%3E%3C/svg%3E") no-repeat right 14px center/10px 7px;
-  padding-right: 36px;
+  background-color: #f9fafb;
+  border-color: #cbd5e1;
+  color: #1f2937;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 6L9 1' stroke='%236b7280' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 10px 7px;
   cursor: pointer;
 }
 
+select.input-field option {
+  color: #1f2937;
+  background-color: #ffffff;
+}
+
+/* Mensajes de error */
 .error-msg {
-  color: #dc2626; /* rojo */
-  font-size: 0.875rem;
-  margin-top: -12px;
-  margin-bottom: 4px;
+  color: #dc2626; /* rojo vivo */
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 6px;
   font-weight: 600;
 }
 
+/* Botones */
 .btn-primary {
-  background-color: #2563eb; /* azul */
-  color: white;
-  font-weight: 600;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
   border: none;
-  border-radius: 6px;
-  padding: 12px 0;
+  border-radius: 8px;
+  padding: 14px 0;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+  user-select: none;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #1d4ed8;
+  background-color: #1e40af;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .btn-disabled {
@@ -68,19 +90,23 @@ select.input-field {
   cursor: not-allowed;
   font-weight: 600;
   border: none;
-  border-radius: 6px;
-  padding: 12px 0;
+  border-radius: 8px;
+  padding: 14px 0;
   font-size: 1.1rem;
 }
 
+/* Párrafos de error */
 p.error-msg {
-  margin-top: 12px;
+  margin-top: 16px;
   text-align: center;
+  font-weight: 600;
+  color: #dc2626;
 }
 
+/* Responsive */
 @media (max-width: 520px) {
   .jugadores-create-wrapper {
-    margin: 20px 16px;
-    padding: 16px;
+    margin: 24px 20px;
+    padding: 20px;
   }
 }

@@ -2,99 +2,128 @@
 .panel-section {
   width: 100%;
   max-width: 860px;
-  margin: 96px auto 0;          /* espacio bajo la navbar */
+  margin: 96px auto 0;
   padding: 0 1rem;
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb; /* fondo muy claro para mejor contraste */
 }
 
 /* ═════════════  BOX  ═════════════ */
 .panel-box {
-  background: #fefefe;
-  border: 1px solid #e0e0e0;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  padding: 2.25rem 2rem;
+  background: #ffffff;
+  border: 1px solid #d1d5db; /* gris claro */
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+  padding: 2.5rem 2.5rem;
 
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  gap: 2rem;
 }
 
 /* ═════════════  FORM  ═════════════ */
 .panel-box form {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: 1.6rem;
 }
 
-
+/* Inputs y textareas */
 .panel-input,
 .panel-textarea {
   width: 100%;
-  padding: 1rem 1.2rem;
-  font-size: 1.05rem;
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
 
-  border: 1px solid #c4c4c4;
-  border-radius: 10px;
-  background: #fafafa;
-  color: #222;
+  border: 1.5px solid #cbd5e1; /* azul grisáceo */
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #111827;
 
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.panel-input::placeholder,
+.panel-textarea::placeholder {
+  color: #9ca3af; /* gris placeholder */
+  font-weight: 500;
 }
 
 .panel-input:focus,
 .panel-textarea:focus {
   outline: none;
-  border-color: #007acc;
-  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.25);
+  border-color: #2563eb; /* azul vivo */
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
   background: #fff;
 }
 
-/* ——— error ——— */
+/* Errores */
 .panel-box span {
-  color: #d03232;
+  color: #ef4444; /* rojo brillante */
   font-size: 0.85rem;
-  margin-top: -0.4rem;
+  margin-top: -0.3rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
-
+/* Botones */
 .panel-btn,
 .panel-btn--disabled {
-  padding: 0.9rem 1.8rem;
-  font-size: 1.05rem;
-  font-weight: 600;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   border: none;
-  border-radius: 10px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: background 0.25s, transform 0.1s;
-  color: #fff;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
 }
 
 .panel-btn {
-  background: #007acc;
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
 }
 
-.panel-btn:hover {
-  background: #005f9f;
+.panel-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #1e40af 0%, #1e3a8a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(30, 58, 138, 0.6);
 }
 
-.panel-btn:active {
-  transform: scale(0.97);
+.panel-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 3px 6px rgba(30, 58, 138, 0.4);
 }
 
 .panel-btn--disabled {
-  background: #808080;
+  background: #9ca3af;
   cursor: not-allowed;
-  opacity: 0.65;
+  opacity: 0.6;
+  box-shadow: none;
 }
 
-/* ═════════════  RESPONSIVE  ═════════════ */
+/* Responsive */
 @media (max-width: 640px) {
   .panel-section {
     margin-top: 80px;
+    padding: 0 0.8rem;
   }
+
   .panel-box {
-    padding: 1.5rem 1.25rem;
+    padding: 1.8rem 1.5rem;
+  }
+
+  .panel-input,
+  .panel-textarea {
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .panel-btn,
+  .panel-btn--disabled {
+    font-size: 1rem;
+    padding: 0.85rem 1.5rem;
   }
 }

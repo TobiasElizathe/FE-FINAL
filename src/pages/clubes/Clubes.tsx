@@ -1,66 +1,116 @@
-import "./Clubes.css"; // el CSS adaptado debe tener las clases nuevas
+// src/pages/Clubes.tsx
 import { useEffect, useState } from "react";
 import axiosInstance from "../../config/axios";
-import { TitleHeader } from "../../components/TitleHeader/TitleHeader";
 import { ClubCard } from "../../components/ClubesCard/ClubesCard";
+import { TitleHeader } from "../../components/TitleHeader/TitleHeader";
+import "./Clubes.css";
 
+interface Jugador {
+  _id: string;
+  nombre: string;
+  apellido: string;
+  club: string;
+}
 
-export type Club = {
+interface Club {
   _id: string;
   name: string;
-  location: string;
-  establishedAt: Date;
-  president?: string;
   stadium?: string;
+  location: string;
+  president?: string;
   titlesWon?: number;
-  players: string[];
+  establishedAt: Date;
   logoUrl?: string;
-  createdAt: string;
-  updatedAt?: string;
-};
-
+  isActive: boolean;
+  players: string[];
+}
 
 export const Clubes = () => {
   const [clubes, setClubes] = useState<Club[]>([]);
+  const [jugadores, setJugadores] = useState<Jugador[]>([]);
   const [loading, setLoading] = useState(true);
+  const [toggleId, setToggleId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchData = async () => {
+    try {
+      const [resClubes, resJugadores] = await Promise.all([
+        axiosInstance.get("/clubes"),
+        axiosInstance.get("/jugadores"),
+      ]);
+      setClubes(resClubes.data.data);
+      setJugadores(resJugadores.data.data);
+    } catch (err) {
+      setError("Error al cargar los clubes o jugadores.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await axiosInstance.get("/clubes");
-        setClubes(res.data.data);
-        if (import.meta.env.DEV) console.log("Clubes fetched");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Unknown error");
-      } finally {
-        setLoading(false);
-      }
-    })();
+    fetchData();
   }, []);
 
-  if (loading) return <p>Loading…</p>;
-  if (error) return <p>Error: {error}</p>;
+  const toggleClubStatus = async (id: string, enable: boolean) => {
+    setError(null);
+    setToggleId(id);
+
+    const endpoint = enable
+      ? `/clubes/${id}/activate`
+      : `/clubes/${id}/desactivate`; // Confirmá la ruta backend
+
+    try {
+      await axiosInstance.patch(endpoint);
+      setClubes((prev) =>
+        prev.map((club) => (club._id === id ? { ...club, isActive: enable } : club))
+      );
+    } catch (err: any) {
+      console.error("Error al actualizar estado:", err.response || err.message || err);
+      setError(
+        err.response?.data?.message || err.message || "No se pudo actualizar el estado."
+      );
+    } finally {
+      setToggleId(null);
+    }
+  };
+
+  if (loading) return <p>Cargando clubes...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <section className="post-wrapper">
+    <section className="clubes-wrapper">
       <TitleHeader title="Clubes" subtitle="Listado de clubes registrados" />
 
-      <div className="post-links">
-        {clubes.map((club) => (
-          <ClubCard
-            key={club._id}
-            _id={club._id}
-            name={club.name}
-            location={club.location}
-            establishedAt={club.establishedAt}
-            players={club.players}
-            president={club.president}
-            stadium={club.stadium}
-            titlesWon={club.titlesWon}
-            logoUrl={club.logoUrl}
-          />
-        ))}
+      <div className="clubes-lista">
+        {clubes.map((club) => {
+          const jugadoresClub = jugadores.filter((j) => j.club === club._id);
+          const isToggling = toggleId === club._id;
+
+          return (
+              <div key={club._id} className="clubes-item">
+              <div className={`club-content ${!club.isActive ? "club-inactive" : ""}`}>
+                <ClubCard {...club} players={jugadoresClub} />
+              </div>
+
+              <div className="jugadorcard_foot">
+                <button
+                  onClick={() => toggleClubStatus(club._id, true)}
+                  disabled={club.isActive || isToggling}
+                  title={club.isActive ? "Ya está activo" : "Activar club"}
+                >
+                  Activar
+                </button>
+                <button
+                  onClick={() => toggleClubStatus(club._id, false)}
+                  disabled={!club.isActive || isToggling}
+                  title={!club.isActive ? "Ya está inactivo" : "Desactivar club"}
+                >
+                  Desactivar
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

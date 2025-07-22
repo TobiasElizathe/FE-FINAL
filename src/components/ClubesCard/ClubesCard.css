@@ -1,34 +1,100 @@
 .club-card {
-  background-color: #f9f9f9;
-  padding: 1.5rem;
+  background-color: white;
   border-radius: 1rem;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 360px;
-  margin: auto;
-  text-align: center;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
+  border: 1px solid #e5e7eb;
 }
 
-.club-escudo {
-  width: 100px;        /* Forzamos tamaño exacto */
-  height: 100px;
-  object-fit: contain; /* Mantiene proporción */
-  display: block;      /* Evita espacios raros */
-  margin: 0 auto 1rem; /* Centrado + margen abajo */
+.club-card:hover {
+  transform: translateY(-3px);
 }
 
-
-.club-nombre {
-  font-size: 1.5rem;
+.club-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
   margin-bottom: 0.5rem;
 }
 
-.club-jugadores {
-  list-style: none;
-  padding: 0;
+.club-card p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 0.3rem;
+}
+
+.club-card .estado {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #10b981;
   margin-top: 0.5rem;
 }
 
-.club-jugadores li {
-  margin: 0.25rem 0;
-  font-size: 0.95rem;
+.club-card .estado.inactivo {
+  color: #ef4444;
+}
+
+.club-card .botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.club-card button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.1s ease;
+}
+
+.club-card button:hover {
+  transform: scale(1.1);
+}
+
+.club-card button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.club-card button img {
+  width: 28px;
+  height: 28px;
+  user-select: none;
+  pointer-events: none;
+}
+.club-botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.club-botones button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.club-botones button:hover {
+  transform: scale(1.1);
+}
+
+.club-botones button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.club-botones img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
 }

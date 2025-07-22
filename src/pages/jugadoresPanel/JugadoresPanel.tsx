@@ -13,6 +13,7 @@ type JugadorFormData = {
   fechaNacimiento: string; // formato yyyy-mm-dd
   posicion: string;
   numeroCamiseta: number;
+  photoUrl?: string; // FOTO del jugador
   club: string; // ID del club
 };
 
@@ -36,6 +37,9 @@ const schema = Joi.object<JugadorFormData>({
   club: Joi.string().required().messages({
     "string.empty": "Debe seleccionar un club",
   }),
+  photoUrl: Joi.string().uri().allow("").optional().messages({
+    "string.uri": "Debe ser una URL válida",
+  }),
 });
 
 export const JugadorPanel = () => {
@@ -45,7 +49,7 @@ export const JugadorPanel = () => {
   const [jugadorInfo, setJugadorInfo] = useState<JugadorFormData | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<Error | null>(null);
-  const [clubes, setClubes] = useState<{ _id: string; nombre: string }[]>([]);
+  const [clubes, setClubes] = useState<{ _id: string; name: string }[]>([]);
 
   const userStored = localStorage.getItem("user");
   const userRegistered = userStored ? JSON.parse(userStored) : null;
@@ -71,6 +75,7 @@ export const JugadorPanel = () => {
           posicion: j.posicion,
           numeroCamiseta: j.numeroCamiseta,
           club: j.club,
+          photoUrl: j.photoUrl,
         });
       } catch (err) {
         setFetchError(err instanceof Error ? err : new Error("No se pudo cargar el jugador"));
@@ -156,6 +161,14 @@ export const JugadorPanel = () => {
             {errors.posicion && <span>{errors.posicion.message}</span>}
 
             <input
+              {...register("photoUrl")}
+              className="panel-input"
+              placeholder="URL de la foto del jugador (opcional)"
+            />
+            {errors.photoUrl && <span>{errors.photoUrl.message}</span>}
+
+
+            <input
               {...register("numeroCamiseta")}
               type="number"
               className="panel-input"
@@ -163,15 +176,16 @@ export const JugadorPanel = () => {
             />
             {errors.numeroCamiseta && <span>{errors.numeroCamiseta.message}</span>}
 
-            <select {...register("club")} className="panel-select">
-              <option value="">Seleccionar club</option>
-              {clubes.map((club) => (
-                <option key={club._id} value={club._id}>
-                  {club.nombre}
-                </option>
-              ))}
-            </select>
-            {errors.club && <span>{errors.club.message}</span>}
+            <select {...register("club")} className="input-field">
+            <option value="">Seleccionar club</option>
+            {clubes.map((club) => (
+              <option key={club._id} value={club._id}>
+                {club.name}
+              </option>
+            ))}
+          </select>
+          {errors.club && <span className="error-msg">{errors.club.message}</span>}
+
 
             <button
               type="submit"

@@ -2,49 +2,54 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #f2f2f2;
+  background-color: #ffffff; /* fondo blanco limpio */
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1.75rem 2rem;
   width: 100%;
-  max-width: 350px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
+  max-width: 360px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* sombra más suave y difusa */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .jugadorcard:hover {
-  transform: scale(1.02);
+  transform: scale(1.04);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
 .jugadorcard__head {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #e0e0e0;
   margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .jugadorcard__name {
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
   margin: 0;
+  color: #1e293b; /* gris oscuro azulado */
+  letter-spacing: -0.02em;
 }
 
 .jugadorcard__posicion {
-  font-size: 1rem;
-  color: #666;
-  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  color: #64748b; /* gris azulado medio */
+  margin-top: 0.35rem;
+  font-style: italic;
 }
 
 .jugadorcard__info {
   list-style: none;
   padding: 0;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.2rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .jugadorcard__info li {
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.05rem;
+  color: #334155; /* gris azulado oscuro */
 }
 
 .jugadorcard__foot {
@@ -53,15 +58,35 @@
 }
 
 .jugadorcard__link {
-  background-color: #007bff;
+  background-color: #2563eb; /* azul primario */
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 1.15rem;
   text-decoration: none;
-  font-weight: bold;
-  border-radius: 0.5rem;
-  transition: background-color 0.2s ease;
+  font-weight: 700;
+  border-radius: 0.6rem;
+  box-shadow: 0 3px 8px rgb(37 99 235 / 0.4);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .jugadorcard__link:hover {
-  background-color: #0056b3;
+  background-color: #1d4ed8;
+  box-shadow: 0 6px 14px rgb(29 78 216 / 0.6);
+}
+.jugadorcard__head {
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.jugadorcard__photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #007acc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
