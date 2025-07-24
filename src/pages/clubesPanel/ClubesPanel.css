@@ -6,13 +6,13 @@
   padding: 0 1rem;
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #f9fafb; /* fondo muy claro para mejor contraste */
+  background: #f9fafb; 
 }
 
 /* ═════════════  BOX  ═════════════ */
 .panel-box {
   background: #ffffff;
-  border: 1px solid #d1d5db; /* gris claro */
+  border: 1px solid #d1d5db; 
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
   padding: 2.5rem 2.5rem;
@@ -36,7 +36,7 @@
   padding: 1rem 1.25rem;
   font-size: 1.1rem;
 
-  border: 1.5px solid #cbd5e1; /* azul grisáceo */
+  border: 1.5px solid #cbd5e1; 
   border-radius: 12px;
   background: #f8fafc;
   color: #111827;
@@ -47,7 +47,7 @@
 
 .panel-input::placeholder,
 .panel-textarea::placeholder {
-  color: #9ca3af; /* gris placeholder */
+  color: #9ca3af; 
   font-weight: 500;
 }
 
@@ -61,7 +61,7 @@
 
 /* Errores */
 .panel-box span {
-  color: #ef4444; /* rojo brillante */
+  color: #ef4444; 
   font-size: 0.85rem;
   margin-top: -0.3rem;
   font-weight: 600;

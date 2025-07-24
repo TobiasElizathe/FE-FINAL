@@ -17,6 +17,7 @@ type FormData = {
   logoUrl?: string;
 };
 
+// Validaciones con Joi
 const validation = Joi.object<FormData>({
   name: Joi.string().required().messages({
     "string.empty": "El nombre es obligatorio"
@@ -44,6 +45,7 @@ const validation = Joi.object<FormData>({
 });
 
 export const ClubCreate = () => {
+  // Hook de formulario con validación Joi
   const {
     register,
     handleSubmit,
@@ -53,8 +55,9 @@ export const ClubCreate = () => {
   const [serverErr, setServerErr] = useState<string | null>(null);
   const navigate = useNavigate();
   const logged = JSON.parse(localStorage.getItem("user") || "null");
-  const canSubmit = Boolean(logged);
+  const canSubmit = Boolean(logged);// Solo permite enviar si está logueado
 
+  // Función que maneja el envío del formulario
   const onSubmit = async (values: FormData) => {
     if (!logged) return;
     setServerErr(null);
@@ -66,7 +69,7 @@ export const ClubCreate = () => {
 
     try {
       await axiosInstance.post("/clubes", body);
-      navigate("/clubes");
+      navigate("/clubes");// Redirige a la lista de clubes
     } catch (e) {
       console.error("Error creando club:", e);
       setServerErr("Error al crear el club. Intenta nuevamente.");

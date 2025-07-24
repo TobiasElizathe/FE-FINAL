@@ -2,7 +2,7 @@
 .panel-section {
   width: 100%;
   max-width: 860px;
-  margin: 96px auto 0;          /* espacio bajo la navbar */
+  margin: 96px auto 0;          
   padding: 0 1rem;
   box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
@@ -101,13 +101,13 @@
 }
 
 .input-field:focus {
-  border-color: #3b82f6; /* azul */
+  border-color: #3b82f6; 
   outline: none;
   box-shadow: 0 0 6px #3b82f6aa;
 }
 
 .error-msg {
-  color: #dc2626; /* rojo */
+  color: #dc2626; 
   font-size: 0.875rem;
   margin-top: -12px;
   margin-bottom: 4px;

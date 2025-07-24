@@ -25,10 +25,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+        // Suscribirse a los cambios de autenticación de Firebase
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
-    return unsubscribe;
+    return unsubscribe;// Limpia la suscripción cuando se desmonta el componente
   }, []);
 
+    // Inicializa el usuario al detectar un cambio de autenticación
   const initializeUser = (user: User | null) => {
     if (user) {
       setCurrentUser({
@@ -40,7 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setCurrentUser(null);
       setUserLoggedIn(false);
     }
-    setLoading(false);
+    setLoading(false);// Finaliza el estado de carga
   };
 
   const value: AuthData = {
@@ -50,6 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
+    // Proporciona el contexto solo cuando terminó de cargar
     <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>

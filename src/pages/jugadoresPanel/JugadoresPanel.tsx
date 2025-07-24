@@ -10,13 +10,13 @@ import { TitleHeader } from "../../components/TitleHeader/TitleHeader";
 type JugadorFormData = {
   nombre: string;
   apellido: string;
-  fechaNacimiento: string; // formato yyyy-mm-dd
+  fechaNacimiento: string; 
   posicion: string;
   numeroCamiseta: number;
-  photoUrl?: string; // FOTO del jugador
-  club: string; // ID del club
+  photoUrl?: string; 
+  club: string; 
 };
-
+// Esquema de validación con Joi para el formulario
 const schema = Joi.object<JugadorFormData>({
   nombre: Joi.string().required().messages({
     "string.empty": "El nombre es obligatorio",
@@ -43,17 +43,17 @@ const schema = Joi.object<JugadorFormData>({
 });
 
 export const JugadorPanel = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+  const { id } = useParams();// obtener ID del jugador desde la URL
+  const navigate = useNavigate();// para redireccionar luego de guardar
+// Estados para manejar datos y UI
   const [jugadorInfo, setJugadorInfo] = useState<JugadorFormData | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<Error | null>(null);
   const [clubes, setClubes] = useState<{ _id: string; name: string }[]>([]);
-
+// Obtener usuario almacenado localmente para controlar permisos
   const userStored = localStorage.getItem("user");
   const userRegistered = userStored ? JSON.parse(userStored) : null;
-
+// Inicializar react-hook-form con validación Joi
   const {
     register,
     handleSubmit,
@@ -64,10 +64,12 @@ export const JugadorPanel = () => {
   });
 
   useEffect(() => {
+  // Función para obtener datos del jugador desde backend
     const fetchJugador = async () => {
       try {
         const res = await axiosInstance.get(`/jugadores/${id}`);
         const j = res.data.data;
+        // Formatear fecha a yyyy-mm-dd para input date
         setJugadorInfo({
           nombre: j.nombre,
           apellido: j.apellido,
@@ -83,7 +85,7 @@ export const JugadorPanel = () => {
         setLoading(false);
       }
     };
-
+    // Función para traer clubes activos para el select
     const fetchClubes = async () => {
       try {
         const res = await axiosInstance.get("/clubes/active");
@@ -96,23 +98,25 @@ export const JugadorPanel = () => {
     fetchJugador();
     fetchClubes();
   }, [id]);
-
+// Cuando se obtienen datos del jugador, resetea el formulario con esos datos
   useEffect(() => {
     if (jugadorInfo) {
       reset(jugadorInfo);
     }
   }, [jugadorInfo, reset]);
-
+ // Función que se llama al enviar formulario para guardar cambios
   const saveChanges = async (values: JugadorFormData) => {
-    if (!userRegistered) return;
+    if (!userRegistered) return;// si no hay usuario logueado no permite guardar
 
     try {
       const payload = {
+        // Convierte fechaNacimiento a objeto Date antes de enviar
         ...values,
         fechaNacimiento: new Date(values.fechaNacimiento),
       };
+      // Enviar PUT para actualizar jugador
       await axiosInstance.put(`/jugadores/update/${id}`, payload);
-      navigate("/jugadores");
+      navigate("/jugadores");// redirigir a listado de jugadores tras guardar
     } catch (err) {
       console.error("Error al modificar jugador:", err);
     }

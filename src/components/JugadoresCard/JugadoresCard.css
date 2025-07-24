@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffffff; /* fondo blanco limpio */
+  background-color: #ffffff; 
   border-radius: 1rem;
   padding: 1.75rem 2rem;
   width: 100%;
   max-width: 360px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* sombra más suave y difusa */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
@@ -27,14 +27,14 @@
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
-  color: #1e293b; /* gris oscuro azulado */
+  color: #1e293b; 
   letter-spacing: -0.02em;
 
 }
 
 .jugadorcard__posicion {
   font-size: 1.1rem;
-  color: #64748b; /* gris azulado medio */
+  color: #64748b; 
   margin-top: 0.35rem;
   font-style: italic;
 }
@@ -50,7 +50,7 @@
 
 .jugadorcard__info li {
   font-size: 1.05rem;
-  color: #334155; /* gris azulado oscuro */
+  color: #334155; 
 }
 
 .jugadorcard__foot {
@@ -59,7 +59,7 @@
 }
 
 .jugadorcard__link {
-  background-color: #2563eb; /* azul primario */
+  background-color: #2563eb; 
   color: white;
   padding: 0.55rem 1.15rem;
   text-decoration: none;

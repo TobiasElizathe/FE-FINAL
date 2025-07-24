@@ -65,7 +65,7 @@
 }
 
 .clubes-botones button:disabled {
-  background-color: #a5b4fc; /* un azul más claro para deshabilitado */
+  background-color: #a5b4fc; /* un más claro para deshabilitado */
   cursor: not-allowed;
   box-shadow: none;
   opacity: 0.6;
@@ -76,6 +76,6 @@
   filter: grayscale(70%);
   pointer-events: none; /* no se puede clickear ni interactuar */
   user-select: none; /* no seleccionar texto */
-  /* opcional: cambiar cursor */
+  /*  cambiar cursor */
   cursor: not-allowed;
 }

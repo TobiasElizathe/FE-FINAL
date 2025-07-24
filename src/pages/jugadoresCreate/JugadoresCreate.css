@@ -6,7 +6,7 @@
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1f2937; /* texto oscuro para buen contraste */
+  color: #1f2937; 
 }
 
 .jugadores-create-form form {
@@ -27,7 +27,7 @@
 }
 
 .input-field:focus {
-  border-color: #2563eb; /* azul vivo */
+  border-color: #2563eb; 
   background-color: #ffffff;
   outline: none;
   box-shadow: 0 0 8px #2563ebcc;
@@ -54,7 +54,7 @@ select.input-field option {
 
 /* Mensajes de error */
 .error-msg {
-  color: #dc2626; /* rojo vivo */
+  color: #dc2626; 
   font-size: 0.9rem;
   margin-top: -10px;
   margin-bottom: 6px;

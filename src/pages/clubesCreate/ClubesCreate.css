@@ -33,7 +33,7 @@
 
 .input-field:focus {
   outline: none;
-  border-color: #2563eb; /* azul vibrante */
+  border-color: #2563eb; 
   box-shadow: 0 0 6px rgba(37, 99, 235, 0.5);
   background-color: #fff;
 }
@@ -76,7 +76,7 @@ button.btn-disabled {
 }
 
 .error-msg {
-  color: #dc2626; /* rojo */
+  color: #dc2626; 
   font-weight: 600;
   font-size: 0.875rem;
   margin-top: -0.25rem;

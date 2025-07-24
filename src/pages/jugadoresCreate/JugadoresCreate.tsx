@@ -1,4 +1,3 @@
-// src/pages/jugadores/JugadoresCreate.tsx
 import "./JugadoresCreate.css";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -17,7 +16,7 @@ type FormData = {
   photoUrl?: string; // FOTO del jugador
   club: string; // id del club
 };
-
+// Validación del formulario con Joi
 const validation = Joi.object<FormData>({
   nombre: Joi.string().required().messages({ "string.empty": "El nombre es obligatorio" }),
   apellido: Joi.string().required().messages({ "string.empty": "El apellido es obligatorio" }),
@@ -29,6 +28,7 @@ const validation = Joi.object<FormData>({
 });
 
 export const JugadoresCreate = () => {
+// Inicialización del formulario con react-hook-form y validación Joi
   const {
     register,
     handleSubmit,
@@ -38,18 +38,15 @@ export const JugadoresCreate = () => {
   const [serverErr, setServerErr] = useState<string | null>(null);
   const [clubs, setClubs] = useState<{ _id: string; name: string }[]>([]);
   const navigate = useNavigate();
-
+  // Obtener usuario logueado del localStorage para permitir envío sino se desabilita la opcion de modificar
   const logged = JSON.parse(localStorage.getItem("user") || "null");
   const canSubmit = Boolean(logged);
-
-  // Traer clubes para select
-  // en JugadoresCreate.tsx
-
+// useEffect para traer la lista de clubes activos al montar el componente
 useEffect(() => {
   (async () => {
     try {
       const res = await axiosI.get("/clubes/active");
-      console.log("Clubes:", res.data.data); // ✔️ Esto va a mostrar los clubes
+      console.log("Clubes:", res.data.data); //  Esto va a mostrar los clubes
       setClubs(res.data.data);
     } catch (err) {
       console.error("Error al obtener clubes:", err);
@@ -57,16 +54,15 @@ useEffect(() => {
   })();
 }, []);
 
-
-
+// Función que se ejecuta al enviar el formulario con datos válidos
   const onSubmit = async (values: FormData) => {
-    if (!logged) return;
+    if (!logged) return;// No permite enviar si no hay usuario logueado
     setServerErr(null);
 
     try {
-      // Adaptar fechaNacimiento a Date si el backend lo requiere así (si axios lo manda string, el backend debe convertirlo)
+      // Envía la data al backend, convirtiendo fechaNacimiento a Date y agregando campos extra
       await axiosI.post("/jugadores", { ...values, fechaNacimiento: new Date(values.fechaNacimiento), isActive: true, createdAt: new Date() });
-      navigate("/jugadores");
+      navigate("/jugadores");// Redirige a listado de jugadores tras éxito
     } catch (e) {
       console.error("Error creando jugador:", e);
       setServerErr("Error al crear el jugador, intenta nuevamente.");

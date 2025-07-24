@@ -42,21 +42,23 @@ export const Clubes = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData();// Ejecuta fetchData una sola vez cuando el componente se monta
   }, []);
 
+  // Función para activar o desactivar un club según su ID
   const toggleClubStatus = async (id: string, enable: boolean) => {
-    setError(null);
-    setToggleId(id);
+    setError(null);// Limpia errores anteriores
+    setToggleId(id); // Marca el club que se está actualizando (para mostrar loading, por ejemplo)
+
 
     const endpoint = enable
       ? `/clubes/${id}/activate`
       : `/clubes/${id}/desactivate`;
 
     try {
-      await axiosInstance.patch(endpoint);
+      await axiosInstance.patch(endpoint);// Llama a la API para cambiar el estado del club
       setClubes((prev) =>
-        prev.map((club) => (club._id === id ? { ...club, isActive: enable } : club))
+        prev.map((club) => (club._id === id ? { ...club, isActive: enable } : club))// Actualiza el estado del club localmente
       );
     } catch (err: any) {
       console.error("Error al actualizar estado:", err.response || err.message || err);
@@ -64,7 +66,7 @@ export const Clubes = () => {
         err.response?.data?.message || err.message || "No se pudo actualizar el estado."
       );
     } finally {
-      setToggleId(null);
+      setToggleId(null);// Limpia el ID del club que estaba siendo actualizado
     }
   };
 

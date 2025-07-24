@@ -16,6 +16,7 @@ export const Login = () => {
       setIsLoggingIn(true);
       setError(null);
       try {
+        // Luego intenta autenticar al usuario con Firebase usando el email y la contraseña ingresados.
         await signInUser(email, password);
       } catch (err: any) {
         setError("Credenciales inválidas o error de conexión.");

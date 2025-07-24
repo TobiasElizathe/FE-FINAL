@@ -19,12 +19,13 @@ import PrivateRoute from './components/privateRoute/PrivateRoute';
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />, // Página de login pública
+    element: <Login />, 
   },
   {
     path: "/register",
-    element: <Register />, // Página de registro pública
+    element: <Register />, 
   },
+  // Ruta principal protegida por autenticación con PrivateRoute
   {
     path: "/",
     element: <PrivateRoute component={Layout} />, // Layout que requiere autenticación
@@ -34,7 +35,6 @@ const router = createBrowserRouter([
         index: true,
         element: <Clubes />,
       },
-      // resto de rutas privadas
       {
         path: "clubes",
         element: <Clubes />,
@@ -62,8 +62,7 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-
+// Renderizado de la app con provider de autenticación y router
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>

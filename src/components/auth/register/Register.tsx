@@ -16,6 +16,7 @@ export const Register = () => {
       setIsRegistering(true);
       setError(null);
       try {
+        // Intenta crear un nuevo usuario con el email y contraseña proporcionados usando Firebase.
         await createUser(email, password);
       } catch (err: any) {
         setError("Error al registrar usuario. Revisa tus datos.");

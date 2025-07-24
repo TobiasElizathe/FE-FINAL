@@ -7,6 +7,7 @@ import Joi from "joi";
 import axiosInstance from "../../config/axios";
 import { TitleHeader } from "../../components/TitleHeader/TitleHeader";
 
+// Definición del tipo de datos del formulario
 type ClubFormData = {
   name: string;
   location: string;
@@ -17,6 +18,7 @@ type ClubFormData = {
   logoUrl?: string;
 };
 
+// Esquema de validación con Joi para los datos del club
 const schema = Joi.object<ClubFormData>({
   name: Joi.string().required().messages({
     "string.empty": "El nombre es obligatorio",
@@ -47,16 +49,16 @@ const schema = Joi.object<ClubFormData>({
 });
 
 export const ClubPanel = () => {
-  const { id } = useParams();
+  const { id } = useParams();// Obtener el ID del club desde la URL
   const navigate = useNavigate();
-
-  const [clubInfo, setClubInfo] = useState<ClubFormData | null>(null);
+// Estados para almacenar info del club, carga y errores
+  const [clubInfo, setClubInfo] = useState<ClubFormData | null>(null);  
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<Error | null>(null);
-
+// Obtener usuario almacenado en localStorage para validar sesión
   const userStored = localStorage.getItem("user");
   const userRegistered = userStored ? JSON.parse(userStored) : null;
-
+  // Inicialización del formulario con react-hook-form y validación Joi
   const {
     register,
     handleSubmit,
@@ -65,13 +67,14 @@ export const ClubPanel = () => {
   } = useForm<ClubFormData>({
     resolver: joiResolver(schema),
   });
-
+  // Efecto para cargar datos del club cuando cambia el ID
   useEffect(() => {
     const fetchClub = async () => {
       try {
+        // Petición GET a la API para obtener datos del club
         const res = await axiosInstance.get(`/clubes/${id}`);
         const c = res.data.data;
-
+        // Formatear datos recibidos y guardar en estado
         setClubInfo({
           name: c.name,
           location: c.location,
@@ -90,24 +93,28 @@ export const ClubPanel = () => {
 
     fetchClub();
   }, [id]);
-
+// Efecto para resetear el formulario con la info cargada del club
   useEffect(() => {
     if (clubInfo) {
       reset(clubInfo);
     }
   }, [clubInfo, reset]);
-
+ // Función para enviar cambios del formulario a la API
   const saveChanges = async (values: ClubFormData) => {
     if (!userRegistered) return;
 
     try {
+      // Preparar payload convirtiendo fecha a Date
       const payload = {
         ...values,
         establishedAt: new Date(values.establishedAt),
       };
+      // Petición PUT para actualizar club en el backend
       await axiosInstance.put(`/clubes/update/${id}`, payload);
+      // Redirigir a la lista de clubes tras éxito
       navigate("/clubes");
     } catch (err) {
+      // Loguear error en consola (podría mostrarse mensaje al usuario)
       console.error("Error al modificar club:", err);
     }
   };

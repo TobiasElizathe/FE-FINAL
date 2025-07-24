@@ -23,16 +23,18 @@ export type Jugador = {
   photoUrl?: string; // FOTO del jugador
   club: Club | string; // ✅ Puede ser objeto o ID
 };
+ // Estado para manejar la carga de jugadores,carga de datos , errores
 export const Jugadores = () => {
   const [jugadores, setJugadores] = useState<Jugador[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+// useEffect que se ejecuta una vez al montar el componente para traer los jugadores
   useEffect(() => {
     const fetchJugadores = async () => {
       try {
         const response = await axiosInstance.get("/jugadores");
         setJugadores(response.data.data);
+        // Log para desarrollo en modo dev
         if (import.meta.env.DEV) {
           console.log("Jugadores fetched:", response.data.data);
         }
@@ -48,7 +50,7 @@ export const Jugadores = () => {
     };
 
     fetchJugadores();
-  }, []);
+  }, []);// Solo se ejecuta al montar el componente
 
   if (loading) {
     return (
@@ -65,7 +67,7 @@ export const Jugadores = () => {
       </section>
     );
   }
-
+// Renderiza la lista de jugadores o mensaje si está vacía
   return (
     <section className="jugadores-wrapper">
       <TitleHeader title="Jugadores" subtitle="Listado de jugadores registrados" />
